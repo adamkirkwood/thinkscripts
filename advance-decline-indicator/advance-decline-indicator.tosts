@@ -1,3 +1,7 @@
+# Advance Decline Indicator for TOS
+# Author: Adam Kirkwood
+# Version: 0.1.0
+
 defineGlobalColor("bearish", color.red);
 defineGlobalColor("neutral", color.gray);
 defineGLobalCOlor("bullish", color.green);
@@ -16,6 +20,7 @@ def upperBullish = UpperBand;
 def midBullish = LowerBand;
 def midBearish = LowerBand * -1;
 def lowerBullish = UpperBand * -1;
+def lowerBandStyle = Curve.SHORT_DASH;
 
 switch (exchange) {
     case NYSE:
@@ -38,7 +43,7 @@ plot h1 = midBullish;
     h1.AssignValueColor(Color.Light_Green);
     h1.HideTitle();
     h1.HideBubble();
-    h1.SetStyle(Curve.SHORT_DASH);
+    h1.SetStyle(lowerBandStyle);
 
 plot zero = 0;
     zero.AssignValueColor(Color.Gray);
@@ -49,7 +54,7 @@ plot l1 = midBearish;
     l1.AssignValueColor(Color.Light_Red);
     l1.HideTitle();
     l1.HideBubble();
-    l1.SetStyle(Curve.SHORT_DASH);
+    l1.SetStyle(lowerBandStyle);
 
 plot l2 = lowerBullish;
     l2.AssignValueColor(GlobalColor("bearish"));
@@ -70,4 +75,4 @@ plot histogram = advdec;
 
 AddLabel(yes, "Issues: " + advdec, Color.Light_Gray);
 
-AddLabel(yes, "Ratio: " + adratio, if adratio >= 1 then Color.Green else Color.Red);
+AddLabel(yes, "Ratio: " + adratio + ":1", if adratio >= 1 then Color.Green else Color.Red);
