@@ -1,0 +1,73 @@
+defineGlobalColor("bearish", color.red);
+defineGlobalColor("neutral", color.gray);
+defineGLobalCOlor("bullish", color.green);
+
+declare lower;
+
+input exchange = { default NYSE, NASDAQ, SNP500};
+
+def advdec;
+def adratio;
+
+input UpperBand = 1500;
+input LowerBand = 1000;
+
+def upperBullish = UpperBand;
+def midBullish = LowerBand;
+def midBearish = LowerBand * -1;
+def lowerBullish = UpperBand * -1;
+
+switch (exchange) {
+    case NYSE:
+        advdec = close("$ADDC");
+        adratio = close("$ADVNC") / close("$DECNC");
+    case NASDAQ:
+        advdec = close("$ADQD");
+        adratio = close("$ADVNC/Q") / close("$DECNC/Q");
+    case SNP500:
+        advdec = close("$ADD");
+        adratio = close("$ADVSPC") / close("$DECLSPC");
+}
+
+plot h2 = upperBullish;
+    h2.AssignValueColor(GlobalColor("bullish"));
+    h2.HideTitle();
+    h2.HideBubble();
+
+plot h1 = midBullish;
+    h1.AssignValueColor(Color.Light_Green);
+    h1.HideTitle();
+    h1.HideBubble();
+    h1.SetStyle(Curve.SHORT_DASH);
+
+plot zero = 0;
+    zero.AssignValueColor(Color.Gray);
+    zero.HideTitle();
+    zero.HideBubble();
+
+plot l1 = midBearish;
+    l1.AssignValueColor(Color.Light_Red);
+    l1.HideTitle();
+    l1.HideBubble();
+    l1.SetStyle(Curve.SHORT_DASH);
+
+plot l2 = lowerBullish;
+    l2.AssignValueColor(GlobalColor("bearish"));
+    l2.HideTitle();
+    l2.HideBubble();
+
+
+plot histogram = advdec;
+    histogram.setPaintingStrategy(PaintingStrategy.HISTOGRAM);
+    histogram.assignValueColor(
+        if histogram > histogram[1] and histogram > midBullish then Color.Cyan
+        else if histogram > midBullish and histogram < histogram[1] then Color.Blue
+        else if histogram > midBearish and histogram > histogram[1] then Color.Gray
+        else if histogram < midBearish and histogram > histogram[1] then Color.Red
+        else if histogram < histogram[1] and histogram < midBearish then Color.Yellow
+        else Color.Gray
+    );
+
+AddLabel(yes, "Issues: " + advdec, Color.Light_Gray);
+
+AddLabel(yes, "Ratio: " + adratio, if adratio >= 1 then Color.Green else Color.Red);
