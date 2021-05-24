@@ -9,7 +9,7 @@ defineGLobalCOlor("bullish", color.green);
 
 declare lower;
 
-input exchange = { default NYSE, NASDAQ, SNP500};
+input exchange = { default SNP500, NASDAQ, NYSE};
 
 def advdec;
 def adratio;
