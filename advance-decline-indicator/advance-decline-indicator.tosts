@@ -1,6 +1,6 @@
 # Advance Decline Indicator for TOS
 # Author: Adam Kirkwood
-# Version: 0.1.0
+# Version: 0.1.1
 # License: https://github.com/adamkirkwood/thinkscripts/blob/main/LICENSE
 
 defineGlobalColor("bearish", color.red);
