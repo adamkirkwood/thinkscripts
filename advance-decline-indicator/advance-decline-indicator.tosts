@@ -76,4 +76,4 @@ plot histogram = advdec;
 
 AddLabel(yes, "Issues: " + advdec, Color.Light_Gray);
 
-AddLabel(yes, "Ratio: " + adratio + ":1", if adratio >= 1 then Color.Green else Color.Red);
+AddLabel(yes, "Ratio: " + Round(adratio, 2) + ":1", if adratio >= 1 then Color.Green else Color.Red);
