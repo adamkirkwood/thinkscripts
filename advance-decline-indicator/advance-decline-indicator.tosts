@@ -26,13 +26,16 @@ def lowerBandStyle = Curve.SHORT_DASH;
 switch (exchange) {
     case NYSE:
         advdec = close("$ADDC");
-        adratio = close("$ADVNC") / close("$DECNC");
+        adratio = close("$ADVN") / close("$DECN");
     case NASDAQ:
-        advdec = close("$ADQD");
+        advdec = close("$ADQDC");
         adratio = close("$ADVNC/Q") / close("$DECNC/Q");
     case SNP500:
-        advdec = close("$ADD");
+        advdec = close("$ADSPDC");
         adratio = close("$ADVSPC") / close("$DECLSPC");
+    case DJIA:
+        advdec = close("$ADID");
+        adratio = close("$ADVI") / close("$DECLI");
 }
 
 plot h2 = upperBullish;
