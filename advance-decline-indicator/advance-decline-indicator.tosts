@@ -1,7 +1,6 @@
 # Advance Decline Indicator for TOS
 # Author: Adam Kirkwood
-# Version: 0.1.3
-# License: https://github.com/adamkirkwood/thinkscripts/blob/main/LICENSE
+# Version: 0.1.4
 
 defineGlobalColor("bearish", color.red);
 defineGlobalColor("neutral", color.gray);
@@ -9,7 +8,7 @@ defineGLobalCOlor("bullish", color.green);
 
 declare lower;
 
-input exchange = { default SNP500, NASDAQ, NYSE, DJIA};
+input exchange = { default SNP500, NYSE, NASDAQ, DJIA, RUT};
 
 def advdec;
 def adratio;
@@ -36,6 +35,9 @@ switch (exchange) {
     case DJIA:
         advdec = close("$ADID");
         adratio = close("$ADVI") / close("$DECLI");
+    case RUT:
+        advdec = close("$ADRLDC");
+        adratio = close("$ADVRLC") / close("$DECLRLC");
 }
 
 plot h2 = upperBullish;
